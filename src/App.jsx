@@ -11,6 +11,12 @@ function App() {
     setRolled(true)
     setRoll(roll)
   }
+  function restart(){
+    setRolled(false)
+    setRoll(0)
+    setDieSides(4)
+    setDieId('d4')
+  }
 const dices = [
     {
       "id": "d4",
@@ -54,7 +60,7 @@ const dices = [
   return (
     <>
     <h1>"Damn"</h1>
-      <select onChange={(e) => {setDieId(parseInt(e.target.key)), setDieSides(parseInt(e.target.value))} } value={dieSides}>
+      <select onChange={(e) => {setDieId((e.target.key)), setDieSides(parseInt(e.target.value))} } value={dieSides}>
            {dices.map((el) => (
           <option key={el.id} value={el.sides}>
             {el.id}
@@ -67,6 +73,7 @@ const dices = [
         rolled && 
         <div>
           <p>You rolled a {roll}</p>
+          <button onClick={() =>{restart()}}>Re-roll</button>
         </div>
       }
     </>
