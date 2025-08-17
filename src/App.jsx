@@ -3,15 +3,27 @@ import './App.css'
 
 function App() {
   const [dieId, setDieId] = useState("d4")
-  const [dieSides, setDieSides] = useState("4")
+  const [dieSides, setDieSides] = useState(4)
   const [rolled, setRolled] = useState(false)
   const [roll, setRoll] = useState(0)
+  const [rolling, setRolling] = useState(false)
    const [history, setHistory] = useState([])
-  function rollDice(sides){
-    const roll = Math.floor(Math.random() * sides) + 1
+  
+  function rollDice(sides) {
+    setRolling(true)
     setRolled(true)
-    setRoll(roll)
-    setHistory([...history, `You rolled a ${roll} from a ${dieId}`])
+    let counter = 0
+    const interval = setInterval(() => {
+      setRoll(Math.floor(Math.random() * sides) + 1)
+      counter++
+    }, 100)
+    setTimeout(() => {
+      clearInterval(interval)
+      const finalRoll = Math.floor(Math.random() * sides) + 1
+      setRoll(finalRoll)
+      setHistory(prev => [...prev, `You rolled a ${finalRoll} from a ${dieId}`])
+      setRolling(false)
+    }, 1000)
   }
   function restart(){
     setRolled(false)
@@ -63,6 +75,8 @@ const dices = [
   return (
     <>
     <h1>"DnD Dice Roller"</h1>
+    <label>
+  Choose a die: 
       <select onChange={(e) => {
         const selectedDie = dices.find(d => d.sides === parseInt(e.target.value))
         setDieId((selectedDie.id))
@@ -74,8 +88,11 @@ const dices = [
           </option>
         ))}
       </select>
+      </label>
       <p>Selected die has {dieSides} sides.</p>
-      <button onClick={() => {rollDice(dieSides)}}>Roll</button>
+      <button disabled={rolling} onClick={() => rollDice(dieSides)}>
+          {rolling ? "Rolling..." : "Roll"}
+      </button>
       {
         rolled && 
         <div>
@@ -90,7 +107,7 @@ const dices = [
               ))}
             </ul>
           </div>
-          <button onClick={() =>{restart()}}>Re-roll</button>
+          <button onClick={() =>{restart()}}>Restart</button>
         </div>
       }
        {rolled && dieId === "d4" && (
