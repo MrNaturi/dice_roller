@@ -21,7 +21,7 @@ function App() {
       clearInterval(interval)
       const finalRoll = Math.floor(Math.random() * sides) + 1
       setRoll(finalRoll)
-      setHistory(prev => [...prev, `You rolled a ${finalRoll} from a ${dieId}`])
+      setHistory(prev => [`You rolled a ${finalRoll} from a ${dieId}`, ...prev,])
       setRolling(false)
     }, 1000)
   }
@@ -159,16 +159,16 @@ function App() {
                 </div>
               </div>
 
-              {/* Die image (if d4) */}
-              {dieId === "d4" && (
+              
+              
                 <div className="text-center">
                   <img
                     src={`/${dieId}/${roll}.png`}
-                    alt={`d4 roll ${roll}`}
+                    alt={`${dieId} roll ${roll}`}
                     className="w-32 h-auto mx-auto rounded-lg shadow-lg shadow-purple-900/50 border-2 border-amber-400/30"
                   />
                 </div>
-              )}
+              
 
               {/* History */}
               <div className="bg-slate-800/50 border border-purple-400/30 rounded-xl p-6">
