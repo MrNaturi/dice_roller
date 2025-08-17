@@ -2,10 +2,11 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [dieId, setDieId] = useState("")
+  const [dieId, setDieId] = useState("d4")
   const [dieSides, setDieSides] = useState("4")
   const [rolled, setRolled] = useState(false)
   const [roll, setRoll] = useState(0)
+  const [imageHref, setImageHref] = useState("")
   function rollDice(sides){
     const roll = Math.floor(Math.random() * sides) + 1
     setRolled(true)
@@ -71,7 +72,7 @@ const dices = [
           </option>
         ))}
       </select>
-      <p>Selected die has {dieSides} sides.</p>
+      <p>Selected die has {dieSides} sides. {dieId}</p>
       <button onClick={() => {rollDice(dieSides)}}>Roll</button>
       {
         rolled && 
@@ -80,6 +81,8 @@ const dices = [
           <button onClick={() =>{restart()}}>Re-roll</button>
         </div>
       }
+        <img src ={`${dieId}/${roll}.png`}/> 
+      
     </>
   )
 }
