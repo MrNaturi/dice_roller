@@ -6,17 +6,19 @@ function App() {
   const [dieSides, setDieSides] = useState("4")
   const [rolled, setRolled] = useState(false)
   const [roll, setRoll] = useState(0)
-  const [imageHref, setImageHref] = useState("")
+   const [history, setHistory] = useState([])
   function rollDice(sides){
     const roll = Math.floor(Math.random() * sides) + 1
     setRolled(true)
     setRoll(roll)
+    setHistory([...history, `You rolled a ${roll} from a ${dieId}`])
   }
   function restart(){
     setRolled(false)
     setRoll(0)
     setDieSides(4)
     setDieId('d4')
+    setHistory([])
   }
 const dices = [
     {
@@ -63,7 +65,7 @@ const dices = [
     <h1>"DnD Dice Roller"</h1>
       <select onChange={(e) => {
         const selectedDie = dices.find(d => d.sides === parseInt(e.target.value))
-        setDieId((selectedDie.id)), 
+        setDieId((selectedDie.id))
         setDieSides(parseInt(e.target.value))} } 
         value={dieSides}>
            {dices.map((el) => (
@@ -72,12 +74,22 @@ const dices = [
           </option>
         ))}
       </select>
-      <p>Selected die has {dieSides} sides. {dieId}</p>
+      <p>Selected die has {dieSides} sides.</p>
       <button onClick={() => {rollDice(dieSides)}}>Roll</button>
       {
         rolled && 
         <div>
           <p>You rolled a {roll}</p>
+          <div>
+            <h3>History</h3>
+            <ul>
+                    {history.map((el, i) => (
+                <li key={i}>
+                  {el}
+                </li>
+              ))}
+            </ul>
+          </div>
           <button onClick={() =>{restart()}}>Re-roll</button>
         </div>
       }
