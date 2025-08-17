@@ -81,7 +81,13 @@ const dices = [
           <button onClick={() =>{restart()}}>Re-roll</button>
         </div>
       }
-        <img src ={`${dieId}/${roll}.png`}/> 
+       {rolled && dieId === "d4" && (
+  <img
+    src={`/${dieId}/${roll}.png`}
+    alt={`d4 roll ${roll}`}
+    style={{ width: "100px", height: "auto", marginTop: "10px" }}
+  />
+)}
       
     </>
   )
