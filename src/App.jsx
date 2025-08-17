@@ -4,9 +4,12 @@ import './App.css'
 function App() {
   const [dieId, setDieId] = useState("")
   const [dieSides, setDieSides] = useState("4")
-  function rollDice(dice){
-    rolls = dice.sides
-    return Math.floor(Math.random() * rolls) + 1
+  const [rolled, setRolled] = useState(false)
+  const [roll, setRoll] = useState(0)
+  function rollDice(sides){
+    const roll = Math.floor(Math.random() * sides) + 1
+    setRolled(true)
+    setRoll(roll)
   }
 const dices = [
     {
@@ -59,6 +62,13 @@ const dices = [
         ))}
       </select>
       <p>Selected die has {dieSides} sides.</p>
+      <button onClick={() => {rollDice(dieSides)}}>Roll</button>
+      {
+        rolled && 
+        <div>
+          <p>You rolled a {roll}</p>
+        </div>
+      }
     </>
   )
 }
