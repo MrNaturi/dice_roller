@@ -60,7 +60,11 @@ const dices = [
   return (
     <>
     <h1>"Damn"</h1>
-      <select onChange={(e) => {setDieId((e.target.key)), setDieSides(parseInt(e.target.value))} } value={dieSides}>
+      <select onChange={(e) => {
+        const selectedDie = dices.find(d => d.sides === parseInt(e.target.value))
+        setDieId((selectedDie.id)), 
+        setDieSides(parseInt(e.target.value))} } 
+        value={dieSides}>
            {dices.map((el) => (
           <option key={el.id} value={el.sides}>
             {el.id}
