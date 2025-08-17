@@ -2,11 +2,11 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [dieId, setDieId] = useState("")
+  const [dieSides, setDieSides] = useState("4")
   function rollDice(dice){
     rolls = dice.sides
     return Math.floor(Math.random() * rolls) + 1
-
   }
 const dices = [
     {
@@ -50,7 +50,15 @@ const dices = [
 
   return (
     <>
-      
+    <h1>"Damn"</h1>
+      <select onChange={(e) => {setDieId(parseInt(e.target.key)), setDieSides(parseInt(e.target.value))} } value={dieSides}>
+           {dices.map((el) => (
+          <option key={el.id} value={el.sides}>
+            {el.id}
+          </option>
+        ))}
+      </select>
+      <p>Selected die has {dieSides} sides.</p>
     </>
   )
 }
