@@ -59,7 +59,7 @@ const dices = [
 
   return (
     <>
-    <h1>"Damn"</h1>
+    <h1>"DnD Dice Roller"</h1>
       <select onChange={(e) => {
         const selectedDie = dices.find(d => d.sides === parseInt(e.target.value))
         setDieId((selectedDie.id)), 
